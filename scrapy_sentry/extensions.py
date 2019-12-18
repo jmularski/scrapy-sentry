@@ -75,6 +75,7 @@ class Errors(object):
             raise NotConfigured('No SENTRY_DSN configured')
         o = cls(dsn=dsn, release=release)
         crawler.signals.connect(o.spider_error, signal=signals.spider_error)
+        crawler.signals.connect(o.item_dropped, signal=signals.item_dropped)
         return o
 
     def spider_error(self, failure, response, spider,
@@ -113,7 +114,7 @@ class Errors(object):
             'failure': str(exception),
             'response': res_dict,
         }
-        
+
         msg = self.client.captureMessage(
             message=u"[{}] {}".format(spider.name, str(exception)),
             extra=extra)  # , stack=failure.stack)
