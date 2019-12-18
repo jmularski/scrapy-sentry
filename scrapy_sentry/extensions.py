@@ -46,6 +46,7 @@ class Signals(object):
                 signal = getattr(signals, signalname)
                 crawler.signals.connect(receiver, signal=signal)
 
+        crawler.signals.connect(o.signal_receiver, signal=signals.item_dropped)
         return o
 
     def signal_receiver(self, signal=None, sender=None, *args, **kwargs):
