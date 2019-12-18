@@ -108,17 +108,8 @@ class Errors(object):
                      signal=None, sender=None):
         res_dict = response_to_dict(response, spider, include_request=True)
 
-        extra = {
-            'sender': sender,
-            'spider': spider.name,
-            'signal': signal,
-            'failure': str(exception),
-            'response': res_dict,
-        }
-
         msg = self.client.captureMessage(
-            message=u"[{}] {}".format(spider.name, str(exception)),
-            extra=extra)  # , stack=failure.stack)
+            message=u"[{}] {}".format(spider.name, str(exception)))  # , stack=failure.stack)
 
         ident = self.client.get_ident(msg)
 
