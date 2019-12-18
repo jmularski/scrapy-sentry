@@ -46,7 +46,6 @@ class Signals(object):
                 signal = getattr(signals, signalname)
                 crawler.signals.connect(receiver, signal=signal)
 
-        crawler.signals.connect(o.signal_receiver, signal=signals.item_dropped)
         return o
 
     def signal_receiver(self, signal=None, sender=None, *args, **kwargs):
@@ -94,6 +93,7 @@ class Errors(object):
             'response': res_dict,
             'traceback': "\n".join(traceback.getvalue().split("\n")[-5:]),
         }
+
         msg = self.client.captureMessage(
             message=u"[{}] {}".format(spider.name, repr(failure.value)),
             extra=extra)  # , stack=failure.stack)
