@@ -57,7 +57,6 @@ def response_to_dict(response, spider, include_request=True, **kwargs):
     """Returns a dict based on a response from a spider"""
     d = {
         'time': time.time(),
-        'status': response.status,
         'url': response.url,
         'headers': dict(response.headers),
         'body': response.body,
@@ -70,7 +69,7 @@ def response_to_dict(response, spider, include_request=True, **kwargs):
 def response_from_dict(response, spider=None, **kwargs):
     """Returns a dict based on a response from a spider"""
     url = response.get("url")
-    status = response.get("status")
+    status = "200"
     headers = Headers([(x, list(map(str, y))) for x, y in
                        response.get("headers").items()])
     body = response.get("body")
